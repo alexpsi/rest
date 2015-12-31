@@ -1,12 +1,9 @@
-var config_file  = process.argv[2] || 'config.json';
-var config       = cjson.load(config_file);
 var mongoose     = require('mongoose');
 var jsonwebtoken = require('jsonwebtoken');
-var jwt          = require('express-jwt');
 require('./userModel.js');
 
 
-module.exports = function(app, router) {
+module.exports = function(app, router, config) {
   var User = mongoose.model('User');
   router.post('/user/session', function(req, res) {
     // find the user

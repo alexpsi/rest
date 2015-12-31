@@ -1,6 +1,6 @@
 var mongoose    = require('mongoose');
 var async       = require('async');
-var _           = require('underscore');
+var _           = require('lodash');
 
 
 exports.createHundredUsers = function(callback) {
@@ -12,11 +12,11 @@ exports.createHundredUsers = function(callback) {
       cb();
     });
   });
-  orders.push(function(cb) {
-    mongoose.connection.collections['resources'].drop( function(err) {
-      cb();
-    });
-  });
+  //orders.push(function(cb) {
+  //  mongoose.connection.collections['resources'].drop( function(err) {
+  //    cb();
+  //  });
+  //});
   var userTable = [];
   _.map(_.range(1,101), function(index) {
     var tmodel = {

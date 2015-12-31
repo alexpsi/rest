@@ -1,6 +1,4 @@
 var cjson       = require('cjson');
-var config_file = process.argv[2] || 'config.json';
-var config      = cjson.load(config_file);
 var _           = require('lodash');
 var fs          = require('fs');
 var glob        = require('glob');
@@ -28,12 +26,14 @@ var morgan      = require('morgan');
 //REPL
 var replify     = require('replify');
 
-module.exports = function() {
+module.exports = function(config_file) {
+  var config = cjson.load(config_file);
   var app = express();
 
-  var logger = require('./logger.js');
+  var logger = require('./logger.js')(config);
   app.use(morgan(config.logFormat, {stream: logger.stream}));
 
+  require('./auth.js')(app, router, config);
 
   //app.use(compression({threshold: config.compressionThreshold}));
   app.use(cors());

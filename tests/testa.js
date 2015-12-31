@@ -1,10 +1,11 @@
-
-    server  = require('../server.js'),
+var server  = require('../core/server.js'),
     seed    = require('./seeds/seed.js'),
-    request = require('../node_modules/request/index.js'),
+    request = require('request'),
     async   = require('async'),
-          _ = require('underscore');
-    util    = require('util');
+    _       = require('lodash'),
+    util    = require('util'),
+    expect  = require('chai').expect;
+
 var app;
 var usertable;
 var mongoose = require('mongoose');
@@ -13,7 +14,7 @@ var docs;
 
 describe("Init", function(done) {
   beforeEach(function(done) {
-      app = server();
+      app = server('config.json');
       mongoose.connection.once('open', done);
   });
   it('should start', function(done) {

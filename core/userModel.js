@@ -4,9 +4,9 @@
  */
 
 var mongoose = require('mongoose');
-var crypto = require('crypto');
-var acl         = require('mongoose-acl');
-var _ =  require('underscore');
+var crypto   = require('crypto');
+var acl      = require('mongoose-acl');
+var _        = require('lodash');
 
 var Schema = mongoose.Schema;
 var oAuthTypes = [
