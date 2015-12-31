@@ -1,0 +1,7 @@
+{
+    "uid": "myapp",
+    "append": true,
+    "watch": true,
+    "script": "index.js",
+    "sourceDir": "/Users/alex/nodes/go2"
+}

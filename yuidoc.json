@@ -1,0 +1,12 @@
+{
+    "name": "Example",
+    "url": "www.example.com",
+    "version": "0.1.0",
+    "options": {
+        "paths": "modules",
+        "outdir": "docs",
+        "exclude": "docs",
+        "themedir": "node_modules/yuidoc-bootstrap-theme",
+        "helpers": ["node_modules/yuidoc-bootstrap-theme/helpers/helpers.js"]
+    }
+}

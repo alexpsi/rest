@@ -1,0 +1,33 @@
+{
+  "name": "justREST",
+  "version": "0.1.0",
+  "description": "A Rest backend with pluggable architecture",
+  "main": "index.js",
+  "scripts": {
+    "test": "./node_modules/mocha/bin/_mocha tests",
+    "coverage": "./node_modules/istanbul/lib/cli.js cover ./node_modules/mocha/bin/_mocha tests",
+    "start": "forever start forever.json",
+    "stop": "forever stop forever.json",
+    "yuidoc": "./node_modules/yuidocjs/lib/cli.js"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "body-parser": "^1.14.2",
+    "cjson": "^0.3.2",
+    "compression": "^1.6.0",
+    "cors": "^2.7.1",
+    "express": "^4.13.3",
+    "express-jwt": "^3.3.0",
+    "express-restify-mongoose": "^2.3.1",
+    "glob": "^6.0.3",
+    "lodash": "^3.10.1",
+    "method-override": "^2.3.5",
+    "mongoose": "^4.3.4",
+    "mongoose-acl": "^0.2.3",
+    "morgan": "^1.6.1",
+    "replify": "^1.2.0",
+    "winston": "^2.1.1"
+  },
+  "devDependencies": {}
+}

@@ -1,0 +1,24 @@
+{
+  // Port
+  "http"                 : 8080,
+
+  // Mongo Configuration
+  "dbname"               : "resttest",
+  "mongoString"          : "mongodb://localhost/",
+
+  // Secret for creating JSON web tokens
+  "webTokenSecret"       : "supersecret",
+  "compressionThreshold" : 512,
+
+  // Access log through morgan
+  "logFormat"            : ":remote-addr - :remote-user [:date[clf]] \":method :url HTTP/:http-version\" :status :res[content-length] \":referrer\" \":user-agent\" :response-time", // [combined|common|dev|short|tiny]
+  "log_dir"              : "logs",
+  "exitOnError"          : true,
+
+  // Set to false to disable repl
+  "replTerminal"         : "myapp",
+
+  // Monitor application through REPL
+  "enableMonitor"        : true
+
+}
