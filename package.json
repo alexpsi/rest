@@ -39,6 +39,8 @@
     "istanbul": "^0.4.1",
     "lorem-ipsum": "^1.0.3",
     "mocha": "^2.3.4",
-    "request": "^2.67.0"
+    "request": "^2.67.0",
+    "request-json": "^0.5.4",
+    "restler": "^3.4.0"
   }
 }

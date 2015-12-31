@@ -33,13 +33,13 @@ module.exports = function(config_file) {
   var logger = require('./logger.js')(config);
   app.use(morgan(config.logFormat, {stream: logger.stream}));
 
-  require('./auth.js')(app, router, config);
 
   //app.use(compression({threshold: config.compressionThreshold}));
   app.use(cors());
-  app.use(bodyParser.urlencoded({ extended: true }));
   app.use(bodyParser.json());
   app.use(mOverride());
+
+  require('./auth.js')(app, router, config);
   app.use('/api', jwt({ secret: config.webTokenSecret}));
 
 

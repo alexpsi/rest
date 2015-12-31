@@ -4,13 +4,11 @@ require('./userModel.js');
 
 
 module.exports = function(app, router, config) {
-  var User = mongoose.model('User');
   router.post('/user/session', function(req, res) {
-    // find the user
+    var User = mongoose.model('User');
     User.findOne({
       username: req.body.username
     }, function(err, user) {
-
       if (err) throw err;
       if (!user) {
         return res.status(401).json({ success : false, message : 'authentication failed' });
