@@ -58,31 +58,21 @@ describe("After the fixture has loaded", function() {
 
 describe("Authentication should fail when using", function() {
   it("a non existing user", function(done) {
-    request({
-      hostname: '127.0.0.1',
-      path: '/user/session',
-      method: 'POST',
-      json: {
-        "username": "nonexistand",
-        "password": "abcd"
-      }
-    }, function (error, response, body) {
-        expect(response.statusCode).to.equal(401);
-        done();
+    rest.postJson('http://127.0.0.1:8080/user/session', {
+      "username": "nonexistand",
+      "password": "abcd"
+    }).on('complete', function(data, response) {
+      expect(response.statusCode).to.equal(401);
+      done();
     });
   });
   it("a wrong password", function(done) {
-    request({
-      hostname: '127.0.0.1',
-      path: '/user/session',
-      method: 'POST',
-      json: {
-        "username": "user50",
-        "password": "abdc"
-      }
-    }, function (error, response, body) {
-        expect(response.statusCode).to.equal(401);
-        done();
+    rest.postJson('http://127.0.0.1:8080/user/session', {
+      "username": "user30",
+      "password": "abdc"
+    }).on('complete', function(data, response) {
+      expect(response.statusCode).to.equal(401);
+      done();
     });
   });
 })
@@ -125,13 +115,10 @@ describe("The scheme should dissallow", function() {
       seed.countUsers(function(count) {
         expect(count).to.equal(100);
         done();
-       email: 'user40@gmail.com'
       });
     });
   });
 })
-
-
 
 describe("Each user", function() {
   it('can have multiple roles', function(done) {
@@ -142,8 +129,8 @@ describe("Each user", function() {
     orders.push(function(cb) {User.addRole('user1', 'roleC', cb);});
     async.parallel(orders, function() {
       User.findOne({username: 'user1'}, function(err,user) {
-          expect(user.roles.length).to.equal(3);
-          done();
+        expect(user.roles.length).to.equal(3);
+        done();
       })
     });
   });
@@ -154,8 +141,8 @@ describe("Each user", function() {
     orders.push(function(cb) {User.removeRole('user1', 'roleB', cb);});
     async.parallel(orders, function() {
       User.findOne({username: 'user1'}, function(err,user) {
-          expect(user.roles.length).to.equal(1);
-          done();
+        expect(user.roles.length).to.equal(1);
+        done();
       })
     });
   });
