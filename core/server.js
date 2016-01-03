@@ -7,14 +7,15 @@ var http        = require('http');
 
 var express     = require('express');
 var router      = express.Router();
-var restify     = require('express-restify-mongoose')
+
 var bodyParser  = require('body-parser');
 var mOverride   = require('method-override');
 var cors        = require('cors');
 var compression = require('compression');
 
 //Mongo
-var mongoose    = require('mongoose');
+var restful     = require('node-restful');
+var mongoose    = restful.mongoose;
 var acl         = require('mongoose-acl');
 
 //Auth
@@ -30,6 +31,9 @@ module.exports = function(config_file) {
   var config = cjson.load(config_file);
   var app = express();
 
+  var options = { server: { socketOptions: { keepAlive: 1 } } };
+  mongoose.connect(config.mongoString + config.dbname, options);
+
   var logger = require('./logger.js')(config);
   app.use(morgan(config.logFormat, {stream: logger.stream}));
 
@@ -38,50 +42,27 @@ module.exports = function(config_file) {
   app.use(cors());
   app.use(bodyParser.json());
   app.use(mOverride());
-
-  require('./auth.js')(app, router, config);
-  app.use('/api', jwt({ secret: config.webTokenSecret}));
-
-
-  // Connect to mongodb
-  var connect = function () {
-    var options = { server: { socketOptions: { keepAlive: 1 } } };
-    mongoose.connect(config.mongoString + config.dbname, options);
-  };
-  connect();
-
-
-  mongoose.connection.on('error', console.log);
-  mongoose.connection.on('disconnected', connect);
-
-  //Core modules
-
   app.use(function(err, req, res, next) {
     res.status(err.status || 500);
     res.json(err);
   });
 
-
-  var context = {};
-  glob("modules/core/*/index.js",{}, function (er, files) {
-    _.each(files, function(file) {
-      require('../' + file)(app, router);
-    });
-  });
-
-  router.get('/api/api', function(req,res) {
-    res.json({
-      version: "0.03",
-      user: req.user
-    });
-  });
+  require('./auth.js')(app, config);
+  app.use('/api', jwt({ secret: config.webTokenSecret}));
 
 
-  var httpServer = http.createServer(app);
-  httpServer.listen(config.http);
+
+  var Resource = restful.model('resource', mongoose.Schema({
+      title: 'string',
+      year: 'number'
+    })).methods(['get', 'post', 'put', 'delete']);
+
+  Resource.register(app, 'resources');
+
+  app.listen(config.http);
   logger.info('HTTP server listening on port: ' + config.http);
 
-
+  var context = {};
   if (config.replTerminal) {
     replify(config.replTerminal, app, context);
     logger.info('REPL terminal activated, access it with rc /tmp/repl/'+ config.replTerminal + '.sock');

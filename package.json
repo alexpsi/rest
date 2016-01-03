@@ -20,14 +20,13 @@
     "cors": "^2.7.1",
     "express": "^4.13.3",
     "express-jwt": "^3.3.0",
-    "express-restify-mongoose": "^2.3.1",
     "glob": "^6.0.3",
     "jsonwebtoken": "^5.5.0",
     "lodash": "^3.10.1",
     "method-override": "^2.3.5",
-    "mongoose": "^4.3.4",
     "mongoose-acl": "^0.2.3",
     "morgan": "^1.6.1",
+    "node-restful": "^0.2.4",
     "replify": "^1.2.0",
     "winston": "^2.1.1"
   },
@@ -39,8 +38,6 @@
     "istanbul": "^0.4.1",
     "lorem-ipsum": "^1.0.3",
     "mocha": "^2.3.4",
-    "request": "^2.67.0",
-    "request-json": "^0.5.4",
     "restler": "^3.4.0"
   }
 }

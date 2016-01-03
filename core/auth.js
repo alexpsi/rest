@@ -3,8 +3,8 @@ var jsonwebtoken = require('jsonwebtoken');
 require('./userModel.js');
 
 
-module.exports = function(app, router, config) {
-  router.post('/user/session', function(req, res) {
+module.exports = function(app, config) {
+  app.post('/user/session', function(req, res) {
     var User = mongoose.model('User');
     User.findOne({
       username: req.body.username
@@ -32,5 +32,4 @@ module.exports = function(app, router, config) {
       }
     });
   });
-  app.use(router);
 }
