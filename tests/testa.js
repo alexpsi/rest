@@ -149,7 +149,7 @@ describe("Each user", function() {
 });
 
 
-/*
+
 describe("When trying to access a path over /api ", function() {
   it('we should be able to access with all hundred users', function(done) {
     var orders = [];
@@ -183,6 +183,7 @@ describe("When trying to access a path over /api ", function() {
   });
 })
 
+/*
 describe('A logged in user', function() {
   it('can create resources', function(done) {
     var orders = [];

@@ -50,7 +50,12 @@ module.exports = function(config_file) {
   require('./auth.js')(app, config);
   app.use('/api', jwt({ secret: config.webTokenSecret}));
 
-
+  app.get('/api/api', function(req,res) {
+    res.json({
+      version: "0.3.2",
+      user: req.user
+    });
+  });
 
   var Resource = restful.model('resource', mongoose.Schema({
       title: 'string',
